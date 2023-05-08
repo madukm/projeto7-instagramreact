@@ -54,10 +54,10 @@ function Post(props) {
     }
 
     return (
-        <div class="post">
+        <div class="post" data-test="post">
             <div class="topo">
                 <div class="usuario">
-                    <img src={props.userImage} />
+                    <img src={props.userImage} data-test="post-image"/>
                     {props.user}
                 </div>
                 <div class="acoes">
@@ -72,18 +72,18 @@ function Post(props) {
             <div class="fundo">
                 <div class="acoes">
                     <div className={redHeart}>
-                        <ion-icon name={liked} onClick={likePostHeart}></ion-icon>
+                        <ion-icon name={liked} onClick={likePostHeart} data-test="like-post"></ion-icon>
                         <ion-icon name="chatbubble-outline"></ion-icon>
                         <ion-icon name="paper-plane-outline"></ion-icon>
                     </div>
                     <div>
-                        <ion-icon name={saved} onClick={savePost}></ion-icon>
+                        <ion-icon name={saved} onClick={savePost} data-test="save-post"></ion-icon>
                     </div>
                 </div>
 
                 <div class="curtidas">
                     <img src={props.likeImage} />
-                    <div class="texto">
+                    <div class="texto" data-test="likes-number">
                         Curtido por <strong>{props.likeUser}</strong> e <strong>outras {nLikes} pessoas</strong>
                     </div>
                 </div>
