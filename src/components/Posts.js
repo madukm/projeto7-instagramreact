@@ -1,9 +1,11 @@
 import { useState } from "react";
 
 export default function Posts() {
+    
     const posts = [
-        {user: 'meowed', userImage: 'assets/img/meowed.svg', postImage: 'assets/img/gato-telefone.svg', likeUser: 'respondeai', likeImage:'assets/img/respondeai.svg', nLikes: '101523'},
-        
+        {user: 'meowed', userImage: 'assets/img/meowed.svg', postImage: 'assets/img/gato-telefone.svg', likeUser: 'respondeai', likeImage:'assets/img/respondeai.svg', nLikes: 101523},
+        {user: 'barked', userImage: 'assets/img/barked.svg', postImage: 'assets/img/dog.svg', likeUser: 'adorableanimals', likeImage:'assets/img/adorable_animals.svg', nLikes: 99159},
+        {user: 'meowed', userImage: 'assets/img/meowed.svg', postImage: 'assets/img/gato-telefone.svg', likeUser: 'respondeai', likeImage:'assets/img/respondeai.svg', nLikes: 10000},
     ];
 
     return (
@@ -19,12 +21,35 @@ export default function Posts() {
 
 function Post(props) {
     let [saved, toggleSave] = useState('bookmark-outline');
+    let [liked, toggleLike] = useState('heart-outline');
+    let [nLikes, updateNLikes] = useState(props.nLikes);
+    let [redHeart, updateHeartColor] = useState("");
 
     function savePost() {
         if (saved === 'bookmark-outline') {
             toggleSave('bookmark');
         } else if (saved === 'bookmark') {
             toggleSave('bookmark-outline');
+        }
+    }
+
+    function likePostHeart() {
+        if (liked === 'heart-outline') {
+            toggleLike('heart');
+            updateHeartColor("red-heart");
+            updateNLikes(nLikes+1);
+        } else if (liked === 'heart') {
+            toggleLike('heart-outline');
+            updateNLikes(nLikes-1);
+            updateHeartColor("");
+        }
+    }
+
+    function likePostImage() {
+        if (liked === 'heart-outline') {
+            toggleLike('heart');
+            updateNLikes(nLikes+1);
+            updateHeartColor("red-heart");
         }
     }
 
@@ -41,13 +66,13 @@ function Post(props) {
             </div>
 
             <div class="conteudo">
-                <img src={props.postImage}/>
+                <img src={props.postImage} onClick={likePostImage}/>
             </div>
 
             <div class="fundo">
                 <div class="acoes">
-                    <div>
-                        <ion-icon name="heart-outline"></ion-icon>
+                    <div className={redHeart}>
+                        <ion-icon name={liked} onClick={likePostHeart}></ion-icon>
                         <ion-icon name="chatbubble-outline"></ion-icon>
                         <ion-icon name="paper-plane-outline"></ion-icon>
                     </div>
@@ -59,7 +84,7 @@ function Post(props) {
                 <div class="curtidas">
                     <img src={props.likeImage} />
                     <div class="texto">
-                        Curtido por <strong>{props.likeUser}</strong> e <strong>outras {props.nLikes} pessoas</strong>
+                        Curtido por <strong>{props.likeUser}</strong> e <strong>outras {nLikes} pessoas</strong>
                     </div>
                 </div>
             </div>

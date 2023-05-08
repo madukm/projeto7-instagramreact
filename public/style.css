@@ -305,3 +305,6 @@
     color: black;
   }
   
+  .red-heart ion-icon:first-of-type {
+    color: red;
+  }
